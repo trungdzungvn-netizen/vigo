@@ -1,0 +1,7 @@
+import Link from 'next/link';
+import { Search, SlidersHorizontal } from 'lucide-react';
+const cities = ['Tất cả thành phố','Hà Nội','TP.HCM','Đà Lạt','Biên Hòa','Đà Nẵng'];
+const categories = ['Tất cả danh mục','Ăn uống','Quán cà phê','Check-in/Du lịch','Về đêm'];
+export default function FilterBar({ city = '', category = '', q = '' }: { city?: string; category?: string; q?: string }) {
+  return <form action="/" className="grid gap-3 rounded-2xl border border-stone-200 bg-white p-4 shadow-sm md:grid-cols-[1.5fr_1fr_1fr_auto]"><label className="flex items-center gap-2 rounded-xl border px-3"><Search size={18} className="text-stone-400"/><input name="q" defaultValue={q} placeholder="Tên quán, món ăn, địa chỉ..." className="w-full py-3 outline-none"/></label><select name="city" defaultValue={city} className="rounded-xl border bg-white px-3 py-3"><option value="">Tất cả thành phố</option>{cities.slice(1).map(x=><option key={x}>{x}</option>)}</select><select name="category" defaultValue={category} className="rounded-xl border bg-white px-3 py-3"><option value="">Tất cả danh mục</option>{categories.slice(1).map(x=><option key={x}>{x}</option>)}</select><button className="flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-5 py-3 font-bold text-white hover:bg-brand-900"><SlidersHorizontal size={17}/> Lọc</button><div className="md:col-span-4"><Link href="/" className="text-xs text-stone-500 underline">Xóa bộ lọc</Link></div></form>
+}
