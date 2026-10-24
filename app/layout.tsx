@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Compass, Heart, MapPin, LogIn } from 'lucide-react';
+import { Compass, Heart, MapPin } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import './globals.css';
 
@@ -70,18 +70,7 @@ export default async function RootLayout({
             </nav>
           </div>
         </header>
-        <main className="min-h-[75vh] pb-20 sm:pb-0">{children}</main>
-
-        {!isLoggedIn && (
-          <div className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-4px_18px_rgba(0,0,0,0.08)] backdrop-blur sm:hidden">
-            <Link
-              href="/login"
-              className="mx-auto flex w-full max-w-7xl items-center justify-center gap-2 rounded-full bg-brand-700 px-4 py-3 text-base font-bold text-white hover:bg-brand-900"
-            >
-              <LogIn size={18} /> Đăng nhập
-            </Link>
-          </div>
-        )}
+        <main className="min-h-[75vh]">{children}</main>
 
         <footer className="mt-16 border-t bg-white">
           <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-8 text-sm text-stone-500 sm:flex-row sm:items-center sm:justify-between">
@@ -89,6 +78,13 @@ export default async function RootLayout({
             <span>Đi để trải nghiệm. Review để sẻ chia.</span>
             <span className="flex items-center gap-1"><MapPin size={14} /> Khám phá Việt Nam</span>
           </div>
+          {!isLoggedIn && (
+            <div className="mx-auto max-w-7xl px-4 pb-5 text-center">
+              <Link href="/login" className="text-xs text-stone-500 underline underline-offset-2 hover:text-brand-700">
+                Đăng nhập quản trị
+              </Link>
+            </div>
+          )}
         </footer>
       </body>
     </html>
