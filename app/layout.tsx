@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, MapPin, Compass, Utensils } from 'lucide-react';
+import { Heart, MapPin, Compass, Camera } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import './globals.css';
 
@@ -41,6 +41,10 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
               <Link href="/" className="flex min-w-0 flex-col items-center gap-0.5 rounded-xl px-1.5 py-2 text-stone-800 hover:bg-stone-50 hover:text-brand-700 sm:flex-row sm:gap-1.5 sm:px-2">
                 <Compass size={18} className="shrink-0 sm:hidden" />
                 <span>Khám phá</span>
+              </Link>
+              <Link href="/?category=Check-in%2FDu+l%E1%BB%8Bch" className="flex min-w-0 flex-col items-center gap-0.5 rounded-xl px-1.5 py-2 text-stone-800 hover:bg-stone-50 hover:text-brand-700 sm:flex-row sm:gap-1.5 sm:px-2">
+                <Camera size={18} className="shrink-0" />
+                <span className="whitespace-nowrap">Top 10 Check-in</span>
               </Link>
               <Link href="/favorites" className="flex min-w-0 flex-col items-center gap-0.5 rounded-xl px-1.5 py-2 text-stone-800 hover:bg-stone-50 hover:text-brand-700 sm:flex-row sm:gap-1.5 sm:px-2">
                 <Heart size={18} className="shrink-0" />
