@@ -1,4 +1,4 @@
-export type Category = 'Ăn uống' | 'Quán cà phê' | 'Check-in/Du lịch' | 'Về đêm';
+export type Category = 'Ăn uống' | 'Cafe' | 'Check-in' | 'Hotel' | 'Quán cà phê' | 'Check-in/Du lịch' | 'Về đêm';
 export type RatingDetail = { food_scenery: number; space: number; service: number; price: number };
 export type Place = {
   id: string; name: string; slug: string | null; description: string | null; category: Category;

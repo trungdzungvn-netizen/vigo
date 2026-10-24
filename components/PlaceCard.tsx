@@ -6,10 +6,10 @@ import type { Place } from '@/types';
 export default function PlaceCard({ place }: { place: Place }) {
   const fallbackImage = place.category === 'Ăn uống'
     ? 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80'
-    : place.category === 'Quán cà phê'
+    : place.category === 'Cafe' || place.category === 'Quán cà phê'
       ? 'https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=800&q=80'
-      : place.category === 'Về đêm'
-        ? 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80'
+      : place.category === 'Hotel' || place.category === 'Về đêm'
+        ? 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80'
         : 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80';
   const price = place.price_min == null
     ? 'Chưa cập nhật giá'

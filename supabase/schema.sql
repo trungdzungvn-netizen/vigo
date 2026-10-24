@@ -1,6 +1,6 @@
 -- VietVivu schema. Run once in Supabase SQL Editor.
 create extension if not exists pgcrypto;
-create type public.place_category as enum ('Ăn uống','Quán cà phê','Check-in/Du lịch','Về đêm');
+create type public.place_category as enum ('Ăn uống','Cafe','Check-in','Hotel');
 create type public.place_status as enum ('pending','published','rejected');
 create table public.profiles (id uuid primary key references auth.users(id) on delete cascade, display_name text check (char_length(display_name) <= 100), avatar_url text, created_at timestamptz not null default now(), updated_at timestamptz not null default now());
 create table public.places (

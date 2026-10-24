@@ -7,7 +7,7 @@ INSERT INTO public.places
   (name, slug, description, category, city, address, price_min, price_max,
    opening_hours, latitude, longitude, cover_image, images,
    average_rating, total_reviews, created_by, status)
-SELECT v.name, v.slug, v.description, 'Check-in/Du lịch'::public.place_category,
+SELECT v.name, v.slug, v.description, 'Check-in'::public.place_category,
        v.city, v.address, NULL, NULL, NULL, NULL, NULL, NULL,
        '{}'::text[], 0, 0, NULL, 'published'::public.place_status
 FROM (VALUES
