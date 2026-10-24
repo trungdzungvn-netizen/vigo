@@ -3,4 +3,5 @@
 @tailwind utilities;
 :root { color-scheme: light; }
 html { scroll-behavior: smooth; }
-body { background: #fafaf7; color: #202923; }
+body { background: #f8f8f3; color: #202923; }
+::selection { background: #b9f4d4; color: #103e2e; }

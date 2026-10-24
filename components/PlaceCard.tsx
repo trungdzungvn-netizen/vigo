@@ -4,6 +4,13 @@ import { Heart, MapPin, Star } from 'lucide-react';
 import type { Place } from '@/types';
 
 export default function PlaceCard({ place }: { place: Place }) {
+  const fallbackImage = place.category === 'Ăn uống'
+    ? 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80'
+    : place.category === 'Quán cà phê'
+      ? 'https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=800&q=80'
+      : place.category === 'Về đêm'
+        ? 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80'
+        : 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80';
   const price = place.price_min == null
     ? 'Chưa cập nhật giá'
     : `${place.price_min.toLocaleString('vi-VN')}đ${place.price_max ? ` – ${place.price_max.toLocaleString('vi-VN')}đ` : '+'}`;
@@ -25,8 +32,9 @@ export default function PlaceCard({ place }: { place: Place }) {
               className="object-cover transition duration-300 sm:group-hover:scale-105"
             />
           ) : (
-            <div className="flex h-full items-center justify-center px-2 text-center text-xs text-stone-400 sm:text-sm">
-              Chưa có ảnh
+            <div className="relative h-full min-h-[128px] bg-cover bg-center" style={{ backgroundImage: `url(${fallbackImage})` }}>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/5" />
+              <span className="absolute bottom-2 left-2 rounded-full bg-black/35 px-2 py-1 text-[10px] font-medium text-white backdrop-blur-sm">Ảnh minh họa</span>
             </div>
           )}
           <span className="absolute left-1.5 top-1.5 max-w-[calc(100%-12px)] truncate rounded-full bg-white/95 px-2 py-1 text-[10px] font-bold text-brand-700 sm:left-3 sm:top-3 sm:px-3 sm:text-xs">
