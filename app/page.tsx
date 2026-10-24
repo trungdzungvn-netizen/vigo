@@ -15,6 +15,14 @@ export default async function Home({ searchParams }: HomeProps) {
   let places: Place[] = [];
   let dbError = '';
 
+  // Backward compatibility for old bookmarks/links that still use the former enum label.
+  const requestedCategory = searchParams.category;
+  const normalizedCategory = requestedCategory === 'Check-in/Du lịch'
+    ? 'Check-in'
+    : requestedCategory === 'Quán cà phê'
+      ? 'Cafe'
+      : requestedCategory;
+
   try {
     const supabase = await createClient();
     const sort = searchParams.sort === 'views' ? 'views' : 'rating';
@@ -34,7 +42,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
     query = query.limit(60);
     if (searchParams.city) query = query.eq('city', searchParams.city);
-    if (searchParams.category) query = query.eq('category', searchParams.category);
+    if (normalizedCategory) query = query.eq('category', normalizedCategory);
     if (searchParams.q) {
       const term = searchParams.q.replace(/[,%()]/g, '');
       query = query.or(
@@ -143,7 +151,7 @@ export default async function Home({ searchParams }: HomeProps) {
       <section className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="relative z-10 -mt-5 rounded-[24px] border border-stone-200/80 bg-white p-3 shadow-[0_18px_50px_-28px_rgba(15,50,35,.28)] sm:p-4">
           <div className="mb-2 flex items-center gap-2 px-2 pt-1 text-sm font-bold text-stone-700"><span className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-50 text-brand-700"><MapPin size={17}/></span> Bạn muốn khám phá điều gì?</div>
-          <FilterBar city={searchParams.city} category={searchParams.category} q={searchParams.q} sort={searchParams.sort} />
+          <FilterBar city={searchParams.city} category={normalizedCategory} q={searchParams.q} sort={searchParams.sort} />
         </div>
 
         <div className="mt-8 grid grid-cols-4 gap-2 sm:gap-4">
