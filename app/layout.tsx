@@ -59,7 +59,7 @@ export default async function RootLayout({
                 <Heart size={16} /> Yêu thích
               </Link>
               <Link href="/places/new" className="rounded-full bg-brand-700 px-4 py-2 text-white hover:bg-brand-900">
-                + Thêm địa điểm
+                + Đề xuất địa điểm
               </Link>
               {isLoggedIn && isAdmin && (
                 <Link href="/admin" className="hover:text-brand-700">Quản trị</Link>

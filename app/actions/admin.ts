@@ -83,3 +83,10 @@ export async function updatePlace(formData: FormData) {
   revalidatePath('/'); revalidatePath('/admin'); revalidatePath(`/place/${id}`); revalidatePath(`/places/${id}/edit`);
   redirect('/admin?updated=1');
 }
+
+
+export async function adminLogout() {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect('/login?logged_out=1');
+}

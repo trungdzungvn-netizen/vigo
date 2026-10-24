@@ -65,3 +65,11 @@ Sau khi cập nhật `supabase/schema.sql` trên project Supabase đã chạy tr
 3. Admin mở `/admin` và nhấn `Sửa` cạnh địa điểm; hoặc vào `/places/new` để tạo mới.
 4. Ảnh dùng bucket Storage `place-images`; chỉ tài khoản đăng nhập được upload vào thư mục UUID của mình. Ảnh công khai để hiển thị trên thẻ địa điểm.
 5. Liên kết Google Maps: mở Google Maps, chọn địa điểm, nhấn Chia sẻ và sao chép liên kết vào trường tương ứng. Có thể điền thêm latitude/longitude.
+
+## Visitor suggestions (anonymous submissions)
+
+1. Run `supabase/migration_visitor_submissions.sql` in Supabase SQL Editor before deploying this version.
+2. The migration adds `submitter_name` and `submitter_phone`, permits anonymous users to upload only into `place-images/submissions/`, and allows anonymous `INSERT` only for pending place rows with zero review stats. Keep RLS enabled.
+3. `/places/new` is public. Visitors submit one required cover image and optional contact details; their place remains `pending` until an Admin publishes it.
+4. The Admin dashboard displays submitter contact information and a link to the submitted image. Admins can approve/reject/hide/delete entries and use the new **Đăng xuất** button.
+5. Anonymous public forms can attract spam. For a production launch, add CAPTCHA/rate limiting before promoting the form widely.
