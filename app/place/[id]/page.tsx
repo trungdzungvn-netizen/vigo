@@ -9,6 +9,8 @@ import type { Review } from '@/types';
 export const revalidate = 0;
 export default async function PlaceDetail({ params }: { params: { id: string } }) {
   const supabase = await createClient();
+  // Count each public detail-page view.
+  await supabase.rpc('increment_place_view_count', { place_id_input: params.id });
   const { data: place } = await supabase.from('places').select('*').eq('id',params.id).eq('status','published').maybeSingle();
   if (!place) notFound();
   const { data: reviews } = await supabase.from('reviews').select('id,user_id,place_id,rating,rating_detail,comment,images,created_at,profiles(display_name,avatar_url)').eq('place_id',params.id).order('created_at',{ascending:false}).limit(50);
