@@ -83,3 +83,9 @@ Trước khi deploy, chạy `supabase/migration_place_phone.sql` trong Supabase 
 ### Logo ViGo
 - Logo SVG tuỳ chỉnh nằm tại `public/vigo-logo.svg`.
 - Header responsive: logo nổi bật hơn, menu co giãn trên điện thoại và máy tính.
+
+
+## Homepage city links and direct place details
+- City chips on the homepage are clickable and filter by city, including Vũng Tàu.
+- Each place card on the homepage links directly to `/place/[id]` when clicked.
+- For Vũng Tàu records, use `city = 'Vũng Tàu'` in Supabase so the homepage chip matches.
