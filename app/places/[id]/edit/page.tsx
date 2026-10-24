@@ -1,0 +1,29 @@
+import { notFound, redirect } from 'next/navigation';
+import { createClient } from '@/lib/supabase/server';
+import { updatePlace } from '@/app/actions/admin';
+
+export default async function EditPlacePage({ params }: { params: { id: string } }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/login');
+  const { data: profile } = await supabase.from('profiles').select('is_admin').eq('id', user.id).maybeSingle();
+  if (profile?.is_admin !== true) redirect('/');
+  const { data: place } = await supabase.from('places').select('*').eq('id', params.id).maybeSingle();
+  if (!place) notFound();
+  return <div className="mx-auto max-w-3xl px-4 py-10"><a href="/admin" className="text-sm font-semibold text-brand-700">← Quay lại quản trị</a><h1 className="mt-3 text-3xl font-black">Chỉnh sửa địa điểm</h1><p className="mt-2 text-stone-500">Cập nhật nội dung, ảnh và liên kết bản đồ.</p>
+    <form action={updatePlace} encType="multipart/form-data" className="mt-6 space-y-5 rounded-2xl border bg-white p-6"><input type="hidden" name="id" value={place.id}/><input type="hidden" name="old_cover_image" value={place.cover_image || ''}/><input type="hidden" name="old_images" value={(place.images || []).join('\n')}/>
+      <label className="block text-sm font-semibold">Tên địa điểm *<input name="name" required minLength={2} maxLength={150} defaultValue={place.name} className="mt-1 w-full rounded-lg border p-3 font-normal"/></label>
+      <div className="grid gap-4 sm:grid-cols-2"><label className="block text-sm font-semibold">Thành phố *<select name="city" required defaultValue={place.city} className="mt-1 w-full rounded-lg border bg-white p-3 font-normal">{['Biên Hòa','TP.HCM','Hà Nội','Đà Lạt','Đà Nẵng','Vũng Tàu','Khác',place.city].filter((x,i,a)=>a.indexOf(x)===i).map(x=><option key={x}>{x}</option>)}</select></label><label className="block text-sm font-semibold">Danh mục *<select name="category" required defaultValue={place.category} className="mt-1 w-full rounded-lg border bg-white p-3 font-normal">{['Ăn uống','Quán cà phê','Check-in/Du lịch','Về đêm'].map(x=><option key={x}>{x}</option>)}</select></label></div>
+      <label className="block text-sm font-semibold">Địa chỉ đầy đủ *<input name="address" required minLength={4} maxLength={300} defaultValue={place.address} className="mt-1 w-full rounded-lg border p-3 font-normal"/></label>
+      <label className="block text-sm font-semibold">Liên kết Google Maps<input name="google_maps_url" type="url" defaultValue={place.google_maps_url || ''} placeholder="https://www.google.com/maps/place/..." className="mt-1 w-full rounded-lg border p-3 font-normal"/><span className="mt-1 block font-normal text-stone-500">Dán liên kết chia sẻ từ Google Maps.</span></label>
+      <div className="grid gap-4 sm:grid-cols-2"><label className="block text-sm font-semibold">Vĩ độ<input name="latitude" type="number" step="any" min="-90" max="90" defaultValue={place.latitude ?? ''} className="mt-1 w-full rounded-lg border p-3 font-normal"/></label><label className="block text-sm font-semibold">Kinh độ<input name="longitude" type="number" step="any" min="-180" max="180" defaultValue={place.longitude ?? ''} className="mt-1 w-full rounded-lg border p-3 font-normal"/></label></div>
+      <div className="grid gap-4 sm:grid-cols-2"><label className="block text-sm font-semibold">Giá từ (VNĐ)<input name="price_min" type="number" min="0" defaultValue={place.price_min ?? ''} className="mt-1 w-full rounded-lg border p-3 font-normal"/></label><label className="block text-sm font-semibold">Giá đến (VNĐ)<input name="price_max" type="number" min="0" defaultValue={place.price_max ?? ''} className="mt-1 w-full rounded-lg border p-3 font-normal"/></label></div>
+      <label className="block text-sm font-semibold">Giờ mở cửa<input name="opening_hours" maxLength={200} defaultValue={place.opening_hours || ''} className="mt-1 w-full rounded-lg border p-3 font-normal"/></label>
+      {place.cover_image && <div><p className="mb-2 text-sm font-semibold">Ảnh đại diện hiện tại</p><img src={place.cover_image} alt="Ảnh đại diện" className="h-40 w-full rounded-xl object-cover"/></div>}
+      <label className="block text-sm font-semibold">Thay ảnh đại diện<input name="cover_image" type="file" accept="image/jpeg,image/png,image/webp" className="mt-1 block w-full rounded-lg border p-3 font-normal"/><span className="mt-1 block font-normal text-stone-500">Để trống nếu giữ ảnh cũ. JPG, PNG hoặc WebP, tối đa 5MB.</span></label>
+      {(place.images || []).length > 0 && <div><p className="mb-2 text-sm font-semibold">Ảnh thư viện hiện tại (được giữ lại)</p><div className="grid grid-cols-3 gap-2">{(place.images as string[]).map((src:string)=><img key={src} src={src} alt="Ảnh địa điểm" className="h-24 w-full rounded-lg object-cover"/>)}</div></div>}
+      <label className="block text-sm font-semibold">Thêm ảnh vào thư viện<input name="images" type="file" multiple accept="image/jpeg,image/png,image/webp" className="mt-1 block w-full rounded-lg border p-3 font-normal"/><span className="mt-1 block font-normal text-stone-500">Ảnh cũ được giữ lại; ảnh mới sẽ được thêm vào. Tối đa 5MB mỗi ảnh.</span></label>
+      <label className="block text-sm font-semibold">Mô tả<textarea name="description" maxLength={3000} rows={4} defaultValue={place.description || ''} className="mt-1 w-full rounded-lg border p-3 font-normal"/></label>
+      <button className="rounded-xl bg-brand-700 px-5 py-3 font-bold text-white">Lưu thay đổi</button>
+    </form></div>;
+}

@@ -56,3 +56,12 @@ where p.id = u.id and lower(u.email) = lower('admin@yourdomain.com');
 4. Nếu câu lệnh cập nhật 0 dòng, kiểm tra tài khoản đã đăng ký và trigger `handle_new_user` đã tạo profile chưa. Không cho phép người dùng tự đặt `is_admin`; chỉ quản trị viên dự án nên chạy câu SQL này.
 
 Sau khi cập nhật `supabase/schema.sql` trên project Supabase đã chạy trước đó, hãy chạy lại phần SQL mới bổ sung `is_admin`, hàm `is_current_user_admin`, các policy admin và quyền cập nhật cột profile. Không chạy lại toàn bộ file cũ nếu gặp lỗi “already exists”; hãy chạy riêng phần bổ sung admin ở cuối file.
+
+
+## Chỉnh sửa địa điểm, tải ảnh và Google Maps
+
+1. Chạy `supabase/migration_edit_images_maps.sql` trong Supabase SQL Editor.
+2. Xác nhận tài khoản Admin có `profiles.is_admin = true`.
+3. Admin mở `/admin` và nhấn `Sửa` cạnh địa điểm; hoặc vào `/places/new` để tạo mới.
+4. Ảnh dùng bucket Storage `place-images`; chỉ tài khoản đăng nhập được upload vào thư mục UUID của mình. Ảnh công khai để hiển thị trên thẻ địa điểm.
+5. Liên kết Google Maps: mở Google Maps, chọn địa điểm, nhấn Chia sẻ và sao chép liên kết vào trường tương ứng. Có thể điền thêm latitude/longitude.
