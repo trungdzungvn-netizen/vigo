@@ -17,7 +17,7 @@ export default async function NewPlace({ searchParams }: { searchParams?: { subm
   }
 
   return <div className="mx-auto max-w-3xl px-4 py-10">
-    <p className="text-sm font-bold uppercase tracking-widest text-brand-700">ViệtVivu</p>
+    <p className="text-sm font-bold uppercase tracking-widest text-brand-700">ViGo</p>
     <h1 className="mt-1 text-3xl font-black">{isAdmin ? 'Đăng địa điểm mới' : 'Đề xuất địa điểm'}</h1>
     <p className="mt-2 text-stone-500">{isAdmin ? 'Bài đăng của Admin sẽ được xuất bản trực tiếp.' : 'Chia sẻ địa điểm hay với cộng đồng. Quản trị viên sẽ kiểm tra và phê duyệt trước khi đăng công khai.'}</p>
     {searchParams?.submitted === '1' && <p role="status" className="mt-4 rounded-xl bg-emerald-50 p-4 font-semibold text-emerald-900">Đã nhận đề xuất! Địa điểm sẽ được quản trị viên xem xét trước khi đăng công khai.</p>}

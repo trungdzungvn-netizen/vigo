@@ -1,4 +1,4 @@
-# ViệtVivu
+# ViGo
 Starter project for a Vietnamese travel and food review web app built with Next.js 14 App Router, TypeScript, Tailwind CSS, Supabase SSR and PostgreSQL.
 
 ## Requirements
@@ -26,7 +26,7 @@ Create buckets `place-images` and `review-images`. Public image buckets need rea
 npm run build
 git init
 git add .
-git commit -m "Initial VietVivu app"
+git commit -m "Initial ViGo app"
 git branch -M main
 git remote add origin https://github.com/YOUR_GITHUB_USERNAME/vietvivu.git
 git push -u origin main
