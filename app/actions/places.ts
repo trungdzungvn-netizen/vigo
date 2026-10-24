@@ -12,7 +12,7 @@ async function uploadImages(supabase: Awaited<ReturnType<typeof createClient>>, 
   const uploaded: string[] = [];
   let coverUrl: string | null = null;
 
-  const uploadOne = async (file: FormDataEntryValue, prefix: string) => {
+  const uploadOne = async (file: FormDataEntryValue | null, prefix: string) => {
     if (!(file instanceof File) || file.size === 0) return null;
     if (!ALLOWED_TYPES.includes(file.type) || file.size > MAX_IMAGE_SIZE) {
       throw new Error('Ảnh phải là JPG, PNG hoặc WebP và không vượt quá 5MB mỗi ảnh.');
