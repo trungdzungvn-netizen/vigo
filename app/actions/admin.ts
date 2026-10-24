@@ -82,7 +82,7 @@ export async function updatePlace(formData: FormData) {
   }).eq('id', id);
   if (error) throw new Error(error.message);
   revalidatePath('/'); revalidatePath('/admin'); revalidatePath(`/place/${id}`); revalidatePath(`/places/${id}/edit`);
-  redirect('/admin?updated=1');
+  redirect(`/places/${id}/edit?updated=1`);
 }
 
 

@@ -2,7 +2,7 @@ import { notFound, redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { updatePlace } from '@/app/actions/admin';
 
-export default async function EditPlacePage({ params }: { params: { id: string } }) {
+export default async function EditPlacePage({ params, searchParams }: { params: { id: string }; searchParams?: { updated?: string } }) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
@@ -11,6 +11,7 @@ export default async function EditPlacePage({ params }: { params: { id: string }
   const { data: place } = await supabase.from('places').select('*').eq('id', params.id).maybeSingle();
   if (!place) notFound();
   return <div className="mx-auto max-w-3xl px-4 py-10"><a href="/admin" className="text-sm font-semibold text-brand-700">← Quay lại quản trị</a><h1 className="mt-3 text-3xl font-black">Chỉnh sửa địa điểm</h1><p className="mt-2 text-stone-500">Cập nhật nội dung, ảnh và liên kết bản đồ.</p>
+    {searchParams?.updated === '1' && <div role="status" aria-live="polite" className="mt-5 rounded-xl border border-green-200 bg-green-50 p-4 text-sm font-semibold text-green-800">✓ Đã lưu thay đổi thành công! Thông tin địa điểm đã được cập nhật.</div>}
     <form action={updatePlace} encType="multipart/form-data" className="mt-6 space-y-5 rounded-2xl border bg-white p-6"><input type="hidden" name="id" value={place.id}/><input type="hidden" name="old_cover_image" value={place.cover_image || ''}/><input type="hidden" name="old_images" value={(place.images || []).join('\n')}/>
       <label className="block text-sm font-semibold">Tên địa điểm *<input name="name" required minLength={2} maxLength={150} defaultValue={place.name} className="mt-1 w-full rounded-lg border p-3 font-normal"/></label>
       <div className="grid gap-4 sm:grid-cols-2"><label className="block text-sm font-semibold">Thành phố *<select name="city" required defaultValue={place.city} className="mt-1 w-full rounded-lg border bg-white p-3 font-normal">{['Biên Hòa','TP.HCM','Hà Nội','Đà Lạt','Đà Nẵng','Vũng Tàu','Khác',place.city].filter((x,i,a)=>a.indexOf(x)===i).map(x=><option key={x}>{x}</option>)}</select></label><label className="block text-sm font-semibold">Danh mục *<select name="category" required defaultValue={place.category} className="mt-1 w-full rounded-lg border bg-white p-3 font-normal">{['Ăn uống','Quán cà phê','Check-in/Du lịch','Về đêm'].map(x=><option key={x}>{x}</option>)}</select></label></div>
