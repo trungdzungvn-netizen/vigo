@@ -1,10 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 150" role="img" aria-labelledby="title desc">
-<title id="title">ViGo</title><desc id="desc">ViGo - Khám phá, ăn ngon, đi đâu cũng vui</desc>
-<defs><linearGradient id="pin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4C542"/><stop offset="0.43" stop-color="#4AAB66"/><stop offset="1" stop-color="#086344"/></linearGradient><linearGradient id="word" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B5D3B"/><stop offset="1" stop-color="#2F9B5D"/></linearGradient></defs>
-<path d="M70 9C31 9 7 38 7 70c0 39 39 68 63 77 24-9 63-38 63-77C133 38 109 9 70 9Z" fill="url(#pin)"/>
-<circle cx="70" cy="64" r="43" fill="#fff"/>
-<path d="M51 38v37M42 38v17c0 9 18 9 18 0V38M51 75v14M84 38c-10 0-14 11-14 23 0 9 5 14 11 14h3v14M84 38v51" fill="none" stroke="#E64B37" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M88 10C91-1 103-3 112 1c-4 11-13 17-24 16" fill="#2C8D51"/><path d="M87 15c4-7 10-11 18-13" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<text x="151" y="91" font-family="Arial, Helvetica, sans-serif" font-size="91" font-weight="800" letter-spacing="-5" fill="url(#word)">ViGo</text>
-<text x="157" y="125" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="2.1" fill="#174D38">KHÁM PHÁ · ĂN NGON · ĐI ĐÂU CŨNG VUI</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 170" role="img" aria-labelledby="title desc">
+  <title id="title">ViGo — Khám phá, ăn ngon, đi đâu cũng vui</title>
+  <desc id="desc">Logo ViGo với biểu tượng ghim bản đồ màu xanh lá, chiếc lá và bộ dao nĩa màu san hô.</desc>
+  <defs>
+    <linearGradient id="pin" x1=".12" y1="0" x2=".88" y2="1"><stop offset="0" stop-color="#D9E82D"/><stop offset=".35" stop-color="#20A866"/><stop offset="1" stop-color="#08734D"/></linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#159B60"/><stop offset="1" stop-color="#07563A"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#064e3b" flood-opacity=".16"/></filter>
+  </defs>
+  <g transform="translate(8 6)" filter="url(#shadow)">
+    <path d="M77 5C36 5 8 35 8 73c0 43 43 79 69 91 26-12 69-48 69-91C146 35 118 5 77 5Z" fill="url(#pin)"/>
+    <path d="M77 5C36 5 8 35 8 73c0 43 43 79 69 91Z" fill="#fff" opacity=".08"/>
+    <circle cx="77" cy="67" r="47" fill="#fff"/>
+    <g fill="none" stroke="#F04444" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M57 42v39M47 42v16c0 10 20 10 20 0V42M57 81v15"/>
+      <path d="M91 42c-11 0-16 12-16 25 0 10 5 16 13 16h3v13M91 42v54"/>
+    </g>
+    <path d="M92 16C96 1 112-2 125 3c-4 14-17 23-32 21" fill="#159B60"/>
+    <path d="M93 19c6-7 13-11 23-13" fill="none" stroke="#fff" stroke-width="2.7" stroke-linecap="round"/>
+  </g>
+  <text x="176" y="103" font-family="Arial, Helvetica, sans-serif" font-size="103" font-weight="800" letter-spacing="-5" fill="url(#word)">ViGo</text>
+  <text x="185" y="139" font-family="Arial, Helvetica, sans-serif" font-size="15.5" font-weight="700" letter-spacing="2.2" fill="#14543B">KHÁM PHÁ · ĂN NGON · ĐI ĐÂU CŨNG VUI</text>
 </svg>
