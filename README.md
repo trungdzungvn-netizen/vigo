@@ -78,3 +78,8 @@ Sau khi cập nhật `supabase/schema.sql` trên project Supabase đã chạy tr
 ## Số điện thoại, đặt giao hàng và liên hệ
 
 Trước khi deploy, chạy `supabase/migration_place_phone.sql` trong Supabase SQL Editor để thêm cột `places.phone`. Sau đó, Admin vào trang sửa địa điểm và nhập số điện thoại. Trang chi tiết sẽ hiển thị nút `Đặt giao hàng` và `Gọi [số điện thoại]`; cả hai mở ứng dụng gọi điện trên điện thoại để khách đặt hàng/liên hệ trực tiếp.
+
+
+### Logo ViGo
+- Logo SVG tuỳ chỉnh nằm tại `public/vigo-logo.svg`.
+- Header responsive: logo nổi bật hơn, menu co giãn trên điện thoại và máy tính.
