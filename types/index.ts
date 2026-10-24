@@ -3,7 +3,7 @@ export type RatingDetail = { food_scenery: number; space: number; service: numbe
 export type Place = {
   id: string; name: string; slug: string | null; description: string | null; category: Category;
   city: string; address: string; price_min: number | null; price_max: number | null;
-  opening_hours: string | null; latitude: number | null; longitude: number | null;
+  opening_hours: string | null; phone: string | null; latitude: number | null; longitude: number | null;
   cover_image: string | null; images: string[]; average_rating: number; total_reviews: number;
   created_at: string; status?: 'pending' | 'published' | 'rejected';
 };

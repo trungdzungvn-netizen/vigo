@@ -44,6 +44,7 @@ export async function updatePlace(formData: FormData) {
   const description = String(formData.get('description') || '').trim();
   const openingHours = String(formData.get('opening_hours') || '').trim();
   const googleMapsUrl = String(formData.get('google_maps_url') || '').trim();
+  const phone = String(formData.get('phone') || '').trim().slice(0, 30);
   const priceMin = formData.get('price_min') ? Number(formData.get('price_min')) : null;
   const priceMax = formData.get('price_max') ? Number(formData.get('price_max')) : null;
   const latitude = formData.get('latitude') ? Number(formData.get('latitude')) : null;
@@ -76,7 +77,7 @@ export async function updatePlace(formData: FormData) {
   const images = [...oldImages, ...newImages];
   const { error } = await supabase.from('places').update({
     name, address, city, category, description, opening_hours: openingHours || null,
-    google_maps_url: googleMapsUrl || null, latitude, longitude,
+    google_maps_url: googleMapsUrl || null, phone: phone || null, latitude, longitude,
     price_min: priceMin, price_max: priceMax, cover_image: coverImage, images,
   }).eq('id', id);
   if (error) throw new Error(error.message);

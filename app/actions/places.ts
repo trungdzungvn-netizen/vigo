@@ -22,6 +22,7 @@ export async function addPlace(formData: FormData) {
   const description = String(formData.get('description') || '').trim();
   const openingHours = String(formData.get('opening_hours') || '').trim();
   const googleMapsUrl = String(formData.get('google_maps_url') || '').trim();
+  const phone = String(formData.get('phone') || '').trim().slice(0, 30);
   const submitterName = String(formData.get('submitter_name') || '').trim().slice(0, 100);
   const submitterPhone = String(formData.get('submitter_phone') || '').trim().slice(0, 30);
   const priceMin = formData.get('price_min') ? Number(formData.get('price_min')) : null;
@@ -54,7 +55,7 @@ export async function addPlace(formData: FormData) {
 
   const { error } = await supabase.from('places').insert({
     name, address, city, category, description, opening_hours: openingHours || null,
-    google_maps_url: googleMapsUrl || null, latitude, longitude,
+    google_maps_url: googleMapsUrl || null, phone: phone || null, latitude, longitude,
     price_min: priceMin, price_max: priceMax, cover_image: coverUrl, images: [],
     created_by: user?.id ?? null,
     status: isAdmin ? 'published' : 'pending',

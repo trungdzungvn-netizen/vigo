@@ -73,3 +73,8 @@ Sau khi cập nhật `supabase/schema.sql` trên project Supabase đã chạy tr
 3. `/places/new` is public. Visitors submit one required cover image and optional contact details; their place remains `pending` until an Admin publishes it.
 4. The Admin dashboard displays submitter contact information and a link to the submitted image. Admins can approve/reject/hide/delete entries and use the new **Đăng xuất** button.
 5. Anonymous public forms can attract spam. For a production launch, add CAPTCHA/rate limiting before promoting the form widely.
+
+
+## Số điện thoại, đặt giao hàng và liên hệ
+
+Trước khi deploy, chạy `supabase/migration_place_phone.sql` trong Supabase SQL Editor để thêm cột `places.phone`. Sau đó, Admin vào trang sửa địa điểm và nhập số điện thoại. Trang chi tiết sẽ hiển thị nút `Đặt giao hàng` và `Gọi [số điện thoại]`; cả hai mở ứng dụng gọi điện trên điện thoại để khách đặt hàng/liên hệ trực tiếp.
