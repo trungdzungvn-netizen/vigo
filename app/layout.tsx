@@ -54,7 +54,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
                 <span className="text-lg leading-none">+</span><span>Đề xuất địa điểm</span>
               </Link>
               {isLoggedIn && isAdmin && <Link href="/admin" className="hidden rounded-lg px-2 py-2 hover:text-brand-700 sm:inline-flex">Quản trị</Link>}
-              {!isLoggedIn && <Link href="/login" className="hidden rounded-lg px-2 py-2 text-stone-600 hover:bg-stone-50 hover:text-brand-700 sm:inline-flex">Đăng nhập</Link>}
             </nav>
           </div>
         </header>
