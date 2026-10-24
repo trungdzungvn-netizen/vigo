@@ -1,16 +1,31 @@
-import { createServerClient } from '@supabase/ssr';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+
+type CookieToSet = { name: string; value: string; options: CookieOptions };
 
 export async function createClient() {
   const cookieStore = cookies();
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-  if (!url || !key) throw new Error('Thiếu cấu hình Supabase trong Environment Variables.');
+
+  if (!url || !key) {
+    throw new Error('Thiếu NEXT_PUBLIC_SUPABASE_URL hoặc NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY.');
+  }
+
   return createServerClient(url, key, {
     cookies: {
-      get(name: string) { return cookieStore.get(name)?.value; },
-      set(name: string, value: string, options: Record<string, unknown>) { try { cookieStore.set({ name, value, ...(options as object) }); } catch {} },
-      remove(name: string, options: Record<string, unknown>) { try { cookieStore.set({ name, value: '', ...(options as object) }); } catch {} },
+      getAll() {
+        return cookieStore.getAll();
+      },
+      setAll(cookiesToSet: CookieToSet[]) {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options);
+          });
+        } catch {
+          // Server Components không thể ghi cookie. Middleware/Server Actions sẽ xử lý refresh.
+        }
+      },
     },
   });
 }
