@@ -35,3 +35,31 @@ grant insert,update on public.profiles to authenticated;
 grant insert,update,delete on public.places to authenticated;
 grant insert,update,delete on public.reviews to authenticated;
 grant select,insert,delete on public.favorites to authenticated;
+
+
+-- Admin role: create a normal Auth account first, then promote it manually in SQL Editor.
+alter table public.profiles add column if not exists is_admin boolean not null default false;
+
+create or replace function public.is_current_user_admin()
+returns boolean
+language sql stable security definer set search_path = ''
+as $$
+  select exists (select 1 from public.profiles p where p.id = (select auth.uid()) and p.is_admin = true);
+$$;
+revoke all on function public.is_current_user_admin() from public;
+grant execute on function public.is_current_user_admin() to anon, authenticated;
+
+-- Admins can review and publish any submitted place. Existing owner policies remain active.
+create policy "admins can read all places" on public.places
+  for select to authenticated using ((select public.is_current_user_admin()));
+create policy "admins can insert places" on public.places
+  for insert to authenticated with check ((select public.is_current_user_admin()));
+create policy "admins can update any place" on public.places
+  for update to authenticated using ((select public.is_current_user_admin()))
+  with check ((select public.is_current_user_admin()));
+create policy "admins can delete any place" on public.places
+  for delete to authenticated using ((select public.is_current_user_admin()));
+
+-- Prevent users from granting themselves admin privileges through profile updates.
+revoke update on public.profiles from authenticated;
+grant update (display_name, avatar_url, updated_at) on public.profiles to authenticated;

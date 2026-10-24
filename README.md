@@ -38,3 +38,21 @@ On Vercel choose Add New → Project → import the GitHub repo. Add `NEXT_PUBLI
 - Image upload UI for places and reviews is not implemented; database supports image URL arrays.
 - Favorites listing and schema are included, but the save/unsave button needs a client component/server action.
 - Add pagination, rate limiting, moderation, error boundaries and tests before launch.
+
+
+## Tạo tài khoản quản trị (Admin)
+
+1. Deploy ứng dụng và mở `/login`, tạo tài khoản bằng email/mật khẩu. Nếu bật xác nhận email trong Supabase, hãy xác nhận email trước khi đăng nhập.
+2. Trong Supabase Dashboard → SQL Editor, chạy lệnh dưới đây, thay email bằng email admin đã đăng ký:
+
+```sql
+update public.profiles p
+set is_admin = true
+from auth.users u
+where p.id = u.id and lower(u.email) = lower('admin@yourdomain.com');
+```
+
+3. Đăng xuất/đăng nhập lại, mở `/admin`. Admin có thể đăng địa điểm trực tiếp ở trạng thái `published`, duyệt bài cộng đồng, ẩn bài hoặc xóa bài. Tài khoản thường chỉ gửi địa điểm ở trạng thái `pending`.
+4. Nếu câu lệnh cập nhật 0 dòng, kiểm tra tài khoản đã đăng ký và trigger `handle_new_user` đã tạo profile chưa. Không cho phép người dùng tự đặt `is_admin`; chỉ quản trị viên dự án nên chạy câu SQL này.
+
+Sau khi cập nhật `supabase/schema.sql` trên project Supabase đã chạy trước đó, hãy chạy lại phần SQL mới bổ sung `is_admin`, hàm `is_current_user_admin`, các policy admin và quyền cập nhật cột profile. Không chạy lại toàn bộ file cũ nếu gặp lỗi “already exists”; hãy chạy riêng phần bổ sung admin ở cuối file.
