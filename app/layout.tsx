@@ -37,16 +37,16 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <header className="sticky top-0 z-20 border-b border-stone-200 bg-white/95 backdrop-blur">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-2.5 sm:px-5 sm:py-3">
             <Link href="/" aria-label="ViGo - Trang chủ" className="group flex min-w-0 shrink-0 items-center">
-              <Image src="/vigo-logo.svg" alt="ViGo — Khám phá, ăn ngon, đi đâu cũng vui" width={340} height={85} priority className="h-auto w-[126px] sm:w-[180px] lg:w-[220px] transition-transform duration-200 group-hover:scale-[1.02]" />
+              <Image src="/vigo-logo.svg" alt="ViGo — Khám phá, ăn ngon, đi đâu cũng vui" width={340} height={85} priority className="h-auto w-[154px] sm:w-[190px] lg:w-[230px] transition-transform duration-200 group-hover:scale-[1.02]" />
             </Link>
             <nav aria-label="Điều hướng chính" className="flex min-w-0 items-center justify-end gap-2 text-xs font-semibold sm:gap-4 sm:text-sm lg:gap-6">
               <Link href="/" className="flex min-w-0 flex-col items-center gap-0.5 rounded-xl px-1.5 py-2 text-stone-800 hover:bg-stone-50 hover:text-brand-700 sm:flex-row sm:gap-1.5 sm:px-2">
                 <Compass size={18} className="shrink-0 sm:hidden" />
                 <span>Khám phá</span>
               </Link>
-              <Link href="/?category=Check-in" className="flex min-w-0 flex-col items-center gap-0.5 rounded-xl px-1.5 py-2 text-stone-800 hover:bg-stone-50 hover:text-brand-700 sm:flex-row sm:gap-1.5 sm:px-2">
+              <Link href="/?category=Check-in%2FDu+l%E1%BB%8Bch" className="flex min-w-0 flex-col items-center gap-0.5 rounded-xl px-1.5 py-2 text-stone-800 hover:bg-stone-50 hover:text-brand-700 sm:flex-row sm:gap-1.5 sm:px-2">
                 <Camera size={18} className="shrink-0" />
-                <span className="whitespace-nowrap">Top 10 Check-in</span>
+                <span className="max-w-[58px] text-center leading-[1.05] sm:max-w-none sm:whitespace-nowrap"><span className="block sm:inline">Top 10</span><span className="block sm:inline sm:ml-1">Check-in</span></span>
               </Link>
               <Link href="/favorites" className="flex min-w-0 flex-col items-center gap-0.5 rounded-xl px-1.5 py-2 text-stone-800 hover:bg-stone-50 hover:text-brand-700 sm:flex-row sm:gap-1.5 sm:px-2">
                 <Heart size={18} className="shrink-0" />
@@ -63,7 +63,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <footer className="mt-16 border-t border-stone-200 bg-white">
           <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-8 text-sm text-stone-500 sm:flex-row sm:items-center sm:justify-between">
             <Link href="/" aria-label="ViGo - Trang chủ" className="inline-flex w-fit items-center">
-              <Image src="/vigo-logo.svg" alt="ViGo" width={340} height={85} className="h-auto w-32" />
+              <Image src="/vigo-logo.svg" alt="ViGo" width={340} height={85} className="h-auto w-36" />
             </Link>
             <span>Đi để trải nghiệm. Review để sẻ chia.</span>
             <span className="flex items-center gap-1"><MapPin size={14} /> Khám phá Việt Nam</span>

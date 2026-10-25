@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Heart, MapPin, Star } from 'lucide-react';
 import type { Place } from '@/types';
+import CheckinButton from '@/components/CheckinButton';
 
 export default function PlaceCard({ place }: { place: Place }) {
   const fallbackImage = place.category === 'Ăn uống'
@@ -11,6 +12,7 @@ export default function PlaceCard({ place }: { place: Place }) {
       : place.category === 'Hotel' || place.category === 'Về đêm'
         ? 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80'
         : 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80';
+  const isCheckin = place.category === 'Check-in' || place.category === 'Check-in/Du lịch';
   const price = place.price_min == null
     ? 'Chưa cập nhật giá'
     : `${place.price_min.toLocaleString('vi-VN')}đ${place.price_max ? ` – ${place.price_max.toLocaleString('vi-VN')}đ` : '+'}`;
@@ -59,13 +61,14 @@ export default function PlaceCard({ place }: { place: Place }) {
           </p>
 
           <div className="mt-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs sm:mt-4 sm:text-sm">
-            <span className="font-semibold text-brand-700">{price}</span>
+            {!isCheckin && <span className="font-semibold text-brand-700">{price}</span>}
             <span className="text-stone-500">{place.total_reviews || 0} đánh giá</span>
           </div>
         </div>
       </Link>
 
-      <div className="border-t border-stone-200 px-3 py-2 sm:px-4">
+      <div className="flex items-center justify-between gap-2 border-t border-stone-200 px-3 py-2 sm:px-4">
+        {isCheckin && <CheckinButton placeId={place.id} placeName={place.name} />}
         <button
           type="button"
           aria-label="Yêu thích (đăng nhập để sử dụng)"
