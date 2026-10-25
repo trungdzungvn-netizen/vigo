@@ -7,4 +7,4 @@ export type Place = {
   cover_image: string | null; images: string[]; average_rating: number; total_reviews: number; view_count?: number;
   created_at: string; status?: 'pending' | 'published' | 'rejected';
 };
-export type Review = { id: string; user_id: string; place_id: string; rating: number; rating_detail: RatingDetail; comment: string; images: string[]; created_at: string; profiles?: { display_name: string | null; avatar_url: string | null } | null };
+export type Review = { id: string; user_id: string | null; place_id: string; reviewer_name?: string | null; rating: number; rating_detail: RatingDetail; comment: string; images: string[]; created_at: string; profiles?: { display_name: string | null; avatar_url: string | null } | null };
