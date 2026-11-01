@@ -34,7 +34,17 @@ export default async function Home({ searchParams }: HomeProps) {
 
     query = query.limit(60);
     if (searchParams.city) query = query.eq('city', searchParams.city);
-    if (searchParams.category) query = query.eq('category', searchParams.category);
+    // Normalize legacy category URLs before querying the PostgreSQL enum.
+    // Old links may still contain `Check-in/Du lịch`, which is no longer a valid enum value.
+    const requestedCategory = searchParams.category === 'Check-in/Du lịch'
+      ? 'Check-in'
+      : searchParams.category === 'Quán cà phê'
+        ? 'Cafe'
+        : searchParams.category;
+    const validCategories = new Set(['Ăn uống', 'Cafe', 'Check-in', 'Hotel']);
+    if (requestedCategory && validCategories.has(requestedCategory)) {
+      query = query.eq('category', requestedCategory);
+    }
     if (searchParams.q) {
       const term = searchParams.q.replace(/[,%()]/g, '');
       query = query.or(
