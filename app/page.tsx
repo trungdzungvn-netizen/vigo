@@ -65,6 +65,7 @@ export default async function Home({ searchParams }: HomeProps) {
     { label: 'Đà Lạt', city: 'Đà Lạt' },
     { label: 'Biên Hòa', city: 'Biên Hòa' },
     { label: 'Đà Nẵng', city: 'Đà Nẵng' },
+    { label: 'Nha Trang', city: 'Nha Trang' },
     { label: 'Vũng Tàu', city: 'Vũng Tàu' },
   ];
 
